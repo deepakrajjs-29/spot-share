@@ -3,183 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotShare - Smart Urban Parking Platform</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <title>SpotShare - Smart Parking Solutions</title>
     <style>
-        /* ===== CSS Variables for Theme Management ===== */
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-tertiary: #94a3b8;
-            --border-color: #e2e8f0;
-            --accent-primary: #3b82f6;
-            --accent-hover: #2563eb;
-            --accent-light: #dbeafe;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-tertiary: #64748b;
-            --border-color: #334155;
-            --shadow: rgba(0, 0, 0, 0.3);
-        }
-
-        /* ===== Base Styles ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --text: #374151;
+            --border: #E5E7EB;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
             line-height: 1.6;
-            transition: background 0.3s ease, color 0.3s ease;
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* ===== Utility Classes ===== */
-        .container {
+        body.dark-mode {
+            --light: #1F2937;
+            --dark: #F9FAFB;
+            --text: #E5E7EB;
+            --border: #374151;
+            background-color: #111827;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode nav {
+            background: #1F2937;
+        }
+
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        .btn-secondary {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border-color);
-        }
-
-        .card {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px var(--shadow);
-            margin-bottom: 20px;
-        }
-
-        /* ===== Header Navigation ===== */
-        header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px var(--shadow);
-        }
-
-        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 1rem 2rem;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent-primary);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 24px;
+            gap: 2rem;
             align-items: center;
+            list-style: none;
         }
 
         .nav-links a {
-            color: var(--text-secondary);
             text-decoration: none;
+            color: var(--text);
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent-primary);
+            color: var(--primary);
         }
 
         .theme-toggle {
-            background: var(--bg-tertiary);
+            background: none;
             border: none;
-            padding: 8px;
-            border-radius: 8px;
+            font-size: 1.5rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            padding: 0.5rem;
         }
 
-        .theme-toggle:hover {
-            background: var(--border-color);
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
         }
 
-        /* ===== Landing Page ===== */
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Hero Section */
         .hero {
-            padding: 80px 0;
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
         }
 
         .hero p {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        body.dark-mode .feature-card {
+            background: #374151;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        body.dark-mode .how-it-works {
+            background: #1F2937;
+        }
+
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -187,1984 +339,326 @@
 
         .cta-buttons {
             display: flex;
-            gap: 16px;
+            gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
-        .features-grid {
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        body.dark-mode footer {
+            background: #111827;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin: 60px 0;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .feature-card {
-            text-align: center;
-            padding: 32px;
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
 
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--accent-light);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
-        }
-
-        /* ===== Authentication Forms ===== */
-        .auth-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .auth-card {
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 4px 16px var(--shadow);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .auth-header h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px var(--accent-light);
-        }
-
-        .form-error {
-            color: var(--danger);
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
-        .role-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .role-option {
-            padding: 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .role-option:hover {
-            border-color: var(--accent-primary);
-            background: var(--accent-light);
-        }
-
-        .role-option.active {
-            border-color: var(--accent-primary);
-            background: var(--accent-light);
-        }
-
-        .auth-divider {
-            text-align: center;
-            margin: 24px 0;
-            position: relative;
-        }
-
-        .auth-divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .auth-divider span {
-            background: var(--bg-primary);
-            padding: 0 16px;
-            position: relative;
-            color: var(--text-tertiary);
-        }
-
-        /* ===== Dashboard Layout ===== */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            background: var(--bg-primary);
-            border-right: 1px solid var(--border-color);
-            padding: 24px;
-        }
-
-        .sidebar-nav {
+        .footer-section ul {
             list-style: none;
-            margin-top: 32px;
         }
 
-        .sidebar-nav li {
-            margin-bottom: 8px;
-        }
-
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            color: var(--text-secondary);
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
         }
 
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
-            background: var(--accent-light);
-            color: var(--accent-primary);
-        }
-
-        .main-content {
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .dashboard-header h1 {
-            font-size: 32px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
-            color: white;
-            padding: 24px;
-            border-radius: 12px;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 8px 0;
-        }
-
-        .stat-label {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        /* ===== Parking Spots Grid ===== */
-        .spots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .spot-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .spot-image {
-            width: 100%;
-            height: 180px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-
-        .spot-info h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .spot-details {
-            display: flex;
-            gap: 16px;
-            margin: 12px 0;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .spot-price {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin: 12px 0;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-
-        .badge-success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        /* ===== Booking Modal ===== */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--bg-primary);
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 32px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        .booking-summary {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 12px 0;
-        }
-
-        .summary-total {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent-primary);
-            padding-top: 12px;
-            border-top: 2px solid var(--border-color);
-            margin-top: 12px;
-        }
-
-        /* ===== Chatbot ===== */
-        .chatbot-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 999;
-        }
-
-        .chatbot-toggle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent-primary);
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--shadow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .chatbot-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .chatbot-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 380px;
-            height: 500px;
-            background: var(--bg-primary);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px var(--shadow);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chatbot-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chatbot-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .message {
-            margin-bottom: 16px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .message.user {
-            flex-direction: row-reverse;
-        }
-
-        .message-bubble {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 12px;
-        }
-
-        .message.bot .message-bubble {
-            background: var(--bg-secondary);
-        }
-
-        .message.user .message-bubble {
-            background: var(--accent-primary);
+        .footer-section a:hover {
             color: white;
         }
 
-        .chatbot-input {
-            display: flex;
-            padding: 16px;
-            border-top: 1px solid var(--border-color);
-            gap: 8px;
-        }
-
-        .chatbot-input input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        /* ===== Charts ===== */
-        .chart-container {
-            background: var(--bg-primary);
-            padding: 24px;
-            border-radius: 12px;
-            margin: 24px 0;
-        }
-
-        canvas {
-            max-width: 100%;
-        }
-
-        /* ===== QR Code Display ===== */
-        .qr-container {
+        .footer-bottom {
             text-align: center;
-            padding: 32px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            margin: 24px 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
         }
 
-        /* ===== Responsive Design ===== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }
 
-            .sidebar {
-                display: none;
+            body.dark-mode .nav-links {
+                background: #1F2937;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
             }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 2.5rem;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .hero p {
+                font-size: 1.1rem;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .hero-buttons {
+                flex-direction: column;
             }
 
-            .spots-grid {
-                grid-template-columns: 1fr;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
-
-            .chatbot-window {
-                width: calc(100vw - 48px);
-            }
-        }
-
-        /* ===== Loading Spinner ===== */
-        .spinner {
-            border: 3px solid var(--border-color);
-            border-top: 3px solid var(--accent-primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- ===== LANDING PAGE ===== -->
-    <div id="landingPage">
-        <header>
-            <nav class="container">
-                <div class="logo">
-                    <span>🅿️</span>
-                    <span>SpotShare</span>
-                </div>
-                <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#" onclick="showAuth('login'); return false;">Login</a>
-                    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-                        <span id="themeIcon">🌙</span>
-                    </button>
-                </div>
-            </nav>
-        </header>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                🅿️ SpotShare
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#stats">Impact</a></li>
+                <li><a href="login.html" class="btn btn-secondary">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+                <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button></li>
+            </ul>
+            <button class="mobile-menu" id="mobileMenu" aria-label="Menu">☰</button>
+        </div>
+    </nav>
 
-        <main>
-            <section class="hero container">
-                <h1>Park Smarter, Earn Better</h1>
-                <p>Connect parking space owners with drivers. Reduce traffic congestion while creating income opportunities in your community.</p>
-                <div class="cta-buttons">
-                    <button class="btn btn-primary" onclick="showAuth('signup-driver')">Find Parking</button>
-                    <button class="btn btn-secondary" onclick="showAuth('signup-owner')">List Your Space</button>
-                </div>
-            </section>
-
-            <section id="features" class="container">
-                <div class="features-grid">
-                    <div class="card feature-card">
-                        <div class="feature-icon">📍</div>
-                        <h3>Real-Time Availability</h3>
-                        <p>Find available parking spots instantly with live updates and GPS navigation</p>
-                    </div>
-                    <div class="card feature-card">
-                        <div class="feature-icon">💰</div>
-                        <h3>Dynamic Pricing</h3>
-                        <p>AI-powered pricing that's fair for drivers and profitable for owners</p>
-                    </div>
-                    <div class="card feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Quick Booking</h3>
-                        <p>Reserve your spot in seconds with our seamless booking system</p>
-                    </div>
-                    <div class="card feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Secure Payments</h3>
-                        <p>Protected transactions with multiple payment options</p>
-                    </div>
-                    <div class="card feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>Smart Analytics</h3>
-                        <p>Predictive insights for optimal pricing and availability</p>
-                    </div>
-                    <div class="card feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3>AI Support</h3>
-                        <p>24/7 intelligent chatbot assistance for all your queries</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- ===== AUTHENTICATION PAGE ===== -->
-    <div id="authPage" class="hidden">
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <h2 id="authTitle">Welcome Back</h2>
-                    <p id="authSubtitle" style="color: var(--text-secondary);">Sign in to continue</p>
-                </div>
-
-                <!-- Login Form -->
-                <form id="loginForm" class="hidden">
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" required placeholder="your@email.com">
-                        <div class="form-error hidden" id="loginEmailError"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" required placeholder="Enter your password">
-                        <div class="form-error hidden" id="loginPasswordError"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Sign In</button>
-                    <div class="auth-divider"><span>or</span></div>
-                    <p style="text-align: center; color: var(--text-secondary);">
-                        Don't have an account? 
-                        <a href="#" onclick="showAuth('signup-driver'); return false;" style="color: var(--accent-primary);">Sign up</a>
-                    </p>
-                </form>
-
-                <!-- Signup Form -->
-                <form id="signupForm" class="hidden">
-                    <div class="role-selector">
-                        <div class="role-option" data-role="driver" onclick="selectRole('driver')">
-                            <div style="font-size: 32px; margin-bottom: 8px;">🚗</div>
-                            <strong>Driver</strong>
-                            <p style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Find parking</p>
-                        </div>
-                        <div class="role-option" data-role="owner" onclick="selectRole('owner')">
-                            <div style="font-size: 32px; margin-bottom: 8px;">🏠</div>
-                            <strong>Owner</strong>
-                            <p style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">List spaces</p>
-                        </div>
-                    </div>
-
-                    <input type="hidden" id="userRole" value="driver">
-
-                    <div class="form-group">
-                        <label for="signupName">Full Name</label>
-                        <input type="text" id="signupName" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="signupEmail">Email</label>
-                        <input type="email" id="signupEmail" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPhone">Phone Number</label>
-                        <input type="tel" id="signupPhone" required placeholder="+1 234 567 8900">
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" required placeholder="Min. 8 characters">
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Create Account</button>
-                    <div class="auth-divider"><span>or</span></div>
-                    <p style="text-align: center; color: var(--text-secondary);">
-                        Already have an account? 
-                        <a href="#" onclick="showAuth('login'); return false;" style="color: var(--accent-primary);">Sign in</a>
-                    </p>
-                </form>
-
-                <button class="btn btn-secondary" onclick="showLanding()" style="width: 100%; margin-top: 16px;">Back to Home</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find & Share Parking Spaces Instantly</h1>
+            <p>Join thousands of drivers and parking space owners revolutionizing urban mobility. Reduce congestion, save time, and earn extra income.</p>
+            <div class="hero-buttons">
+                <a href="signup.html?type=driver" class="btn btn-primary">Find Parking</a>
+                <a href="signup.html?type=owner" class="btn btn-secondary">List Your Space</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ===== DRIVER DASHBOARD ===== -->
-    <div id="driverDashboard" class="hidden">
-        <div class="dashboard">
-            <aside class="sidebar">
-                <div class="logo">🅿️ SpotShare</div>
-                <ul class="sidebar-nav">
-                    <li><a href="#" class="active" onclick="showDriverSection('search'); return false;">🔍 Search Spots</a></li>
-                    <li><a href="#" onclick="showDriverSection('bookings'); return false;">📅 My Bookings</a></li>
-                    <li><a href="#" onclick="showDriverSection('profile'); return false;">👤 Profile</a></li>
-                    <li><a href="#" onclick="logout(); return false;">🚪 Logout</a></li>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose SpotShare?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>Real-Time Availability</h3>
+                <p>Find available parking spots near you with our live map and instant booking system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Powered Support</h3>
+                <p>Get instant help from our GenAI chatbot for bookings, directions, and assistance 24/7.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Dynamic Pricing</h3>
+                <p>Smart pricing algorithms ensure fair rates based on demand, location, and duration.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Payments</h3>
+                <p>Safe and encrypted transactions with multiple payment options for your convenience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics Dashboard</h3>
+                <p>Track your earnings, occupancy rates, and optimize your parking space performance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Community Driven</h3>
+                <p>Join a growing community of parking space owners and drivers helping each other.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Sign Up</h3>
+                <p>Create your account as a driver or parking space owner in just minutes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Search or List</h3>
+                <p>Drivers search for parking, owners list their available spaces with pricing.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Book & Earn</h3>
+                <p>Instant booking with QR code access. Owners earn passive income effortlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">50K+</div>
+                <div>Active Users</div>
+            </div>
+            <div>
+                <div class="stat-number">10K+</div>
+                <div>Parking Spaces</div>
+            </div>
+            <div>
+                <div class="stat-number">30%</div>
+                <div>Traffic Reduction</div>
+            </div>
+            <div>
+                <div class="stat-number">$500K+</div>
+                <div>Community Earnings</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Transform Your Parking Experience?</h2>
+        <p>Join SpotShare today and be part of the smart parking revolution. Whether you're looking for convenient parking or want to earn from your unused space.</p>
+        <div class="cta-buttons">
+            <a href="signup.html?type=driver" class="btn btn-primary">Get Started as Driver</a>
+            <a href="signup.html?type=owner" class="btn btn-secondary">Become a Space Owner</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SpotShare</h4>
+                <p>Revolutionizing urban parking through community-driven solutions.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
                 </ul>
-                <div style="margin-top: auto; padding-top: 24px;">
-                    <button class="theme-toggle" onclick="toggleTheme()" style="width: 100%;">
-                        <span id="dashboardThemeIcon">🌙</span> Toggle Theme
-                    </button>
-                </div>
-            </aside>
-
-            <main class="main-content">
-                <!-- Search Section -->
-                <div id="searchSection">
-                    <div class="dashboard-header">
-                        <h1>Find Parking</h1>
-                        <div style="display: flex; gap: 12px;">
-                            <input type="text" id="searchLocation" placeholder="Enter location..." 
-                                   style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary);">
-                            <button class="btn btn-primary" onclick="searchSpots()">Search</button>
-                        </div>
-                    </div>
-
-                    <div class="spots-grid" id="spotsGrid">
-                        <!-- Parking spots will be dynamically inserted here -->
-                    </div>
-                </div>
-
-                <!-- Bookings Section -->
-                <div id="bookingsSection" class="hidden">
-                    <div class="dashboard-header">
-                        <h1>My Bookings</h1>
-                    </div>
-                    <div id="bookingsList"></div>
-                </div>
-
-                <!-- Profile Section -->
-                <div id="profileSection" class="hidden">
-                    <div class="dashboard-header">
-                        <h1>Profile Settings</h1>
-                    </div>
-                    <div class="card">
-                        <h3>Personal Information</h3>
-                        <form id="profileForm" style="margin-top: 24px;">
-                            <div class="form-group">
-                                <label>Full Name</label>
-                                <input type="text" id="profileName" placeholder="John Doe">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="profileEmail" placeholder="your@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="tel" id="profilePhone" placeholder="+1 234 567 8900">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- ===== OWNER DASHBOARD ===== -->
-    <div id="ownerDashboard" class="hidden">
-        <div class="dashboard">
-            <aside class="sidebar">
-                <div class="logo">🅿️ SpotShare</div>
-                <ul class="sidebar-nav">
-                    <li><a href="#" class="active" onclick="showOwnerSection('overview'); return false;">📊 Overview</a></li>
-                    <li><a href="#" onclick="showOwnerSection('listings'); return false;">🅿️ My Listings</a></li>
-                    <li><a href="#" onclick="showOwnerSection('add'); return false;">➕ Add Spot</a></li>
-                    <li><a href="#" onclick="showOwnerSection('earnings'); return false;">💰 Earnings</a></li>
-                    <li><a href="#" onclick="logout(); return false;">🚪 Logout</a></li>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
                 </ul>
-                <div style="margin-top: auto; padding-top: 24px;">
-                    <button class="theme-toggle" onclick="toggleTheme()" style="width: 100%;">
-                        <span id="ownerThemeIcon">🌙</span> Toggle Theme
-                    </button>
-                </div>
-            </aside>
-
-            <main class="main-content">
-                <!-- Overview Section -->
-                <div id="overviewSection">
-                    <div class="dashboard-header">
-                        <h1>Dashboard Overview</h1>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Earnings</div>
-                            <div class="stat-value">$2,450</div>
-                            <div style="opacity: 0.9; font-size: 14px;">+12% this month</div>
-                        </div>
-                        <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669);">
-                            <div class="stat-label">Active Listings</div>
-                            <div class="stat-value">3</div>
-                            <div style="opacity: 0.9; font-size: 14px;">All verified</div>
-                        </div>
-                        <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                            <div class="stat-label">Total Bookings</div>
-                            <div class="stat-value">127</div>
-                            <div style="opacity: 0.9; font-size: 14px;">This month: 18</div>
-                        </div>
-                        <div class="stat-card" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
-                            <div class="stat-label">Occupancy Rate</div>
-                            <div class="stat-value">87%</div>
-                            <div style="opacity: 0.9; font-size: 14px;">Above average</div>
-                        </div>
-                    </div>
-
-                    <div class="chart-container">
-                        <h3 style="margin-bottom: 20px;">Monthly Earnings</h3>
-                        <canvas id="earningsChart" width="800" height="300"></canvas>
-                    </div>
-                </div>
-
-                <!-- Listings Section -->
-                <div id="listingsSection" class="hidden">
-                    <div class="dashboard-header">
-                        <h1>My Parking Spots</h1>
-                        <button class="btn btn-primary" onclick="showOwnerSection('add')">Add New Spot</button>
-                    </div>
-                    <div id="ownerSpotsList" class="spots-grid"></div>
-                </div>
-
-                <!-- Add Spot Section -->
-                <div id="addSpotSection" class="hidden">
-                    <div class="dashboard-header">
-                        <h1>List a Parking Space</h1>
-                    </div>
-                    <div class="card">
-                        <form id="addSpotForm">
-                            <div class="form-group">
-                                <label>Spot Title</label>
-                                <input type="text" id="spotTitle" required placeholder="e.g., Secure Downtown Parking">
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" id="spotAddress" required placeholder="123 Main St, City">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea id="spotDescription" rows="4" placeholder="Describe your parking space..."></textarea>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                                <div class="form-group">
-                                    <label>Price per Hour ($)</label>
-                                    <input type="number" id="spotPrice" required placeholder="5.00" step="0.50" min="0">
-                                </div>
-                                <div class="form-group">
-                                    <label>Space Type</label>
-                                    <select id="spotType" required>
-                                        <option value="">Select type</option>
-                                        <option value="driveway">Driveway</option>
-                                        <option value="garage">Garage</option>
-                                        <option value="lot">Parking Lot</option>
-                                        <option value="street">Street Parking</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                                <div class="form-group">
-                                    <label>
-                                        <input type="checkbox" id="spotCovered"> Covered
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="checkbox" id="spotEV"> EV Charging
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">List Parking Space</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Earnings Section -->
-                <div id="earningsSection" class="hidden">
-                    <div class="dashboard-header">
-                        <h1>Earnings & Analytics</h1>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Earnings Breakdown</h3>
-                        <div style="margin-top: 24px;">
-                            <div class="summary-row">
-                                <span>Total Gross Earnings</span>
-                                <strong>$2,720</strong>
-                            </div>
-                            <div class="summary-row">
-                                <span>Platform Fee (10%)</span>
-                                <strong>-$272</strong>
-                            </div>
-                            <div class="summary-row">
-                                <span>Processing Fees</span>
-                                <strong>-$8</strong>
-                            </div>
-                            <div class="summary-row summary-total">
-                                <span>Net Earnings</span>
-                                <strong>$2,450</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chart-container">
-                        <h3 style="margin-bottom: 20px;">Booking Trends</h3>
-                        <canvas id="bookingChart" width="800" height="300"></canvas>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- ===== BOOKING MODAL ===== -->
-    <div id="bookingModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Book Parking Spot</h2>
-                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
             </div>
-
-            <div id="bookingSpotDetails"></div>
-
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label>Start Date & Time</label>
-                    <input type="datetime-local" id="bookingStart" required>
-                </div>
-                <div class="form-group">
-                    <label>End Date & Time</label>
-                    <input type="datetime-local" id="bookingEnd" required>
-                </div>
-                <div class="form-group">
-                    <label>Vehicle Number</label>
-                    <input type="text" id="vehicleNumber" required placeholder="ABC-1234">
-                </div>
-
-                <div class="booking-summary">
-                    <div class="summary-row">
-                        <span>Hourly Rate</span>
-                        <strong id="summaryRate">$0.00</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Duration</span>
-                        <strong id="summaryDuration">0 hours</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <strong id="summarySubtotal">$0.00</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Service Fee</span>
-                        <strong id="summaryFee">$0.00</strong>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total</span>
-                        <strong id="summaryTotal">$0.00</strong>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm Booking</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ===== BOOKING CONFIRMATION MODAL ===== -->
-    <div id="confirmationModal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Booking Confirmed! 🎉</h2>
-                <button class="modal-close" onclick="closeConfirmationModal()">&times;</button>
-            </div>
-
-            <div style="text-align: center;">
-                <div style="font-size: 48px; margin: 24px 0;">✅</div>
-                <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 24px;">
-                    Your parking spot has been reserved successfully!
-                </p>
-            </div>
-
-            <div class="qr-container">
-                <h3 style="margin-bottom: 16px;">Access QR Code</h3>
-                <canvas id="qrCode"></canvas>
-                <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
-                    Show this QR code to access your parking spot
-                </p>
-            </div>
-
-            <div id="confirmationDetails"></div>
-
-            <button class="btn btn-primary" onclick="closeConfirmationModal()" style="width: 100%; margin-top: 16px;">
-                Done
-            </button>
-        </div>
-    </div>
-
-    <!-- ===== AI CHATBOT ===== -->
-    <div class="chatbot-container">
-        <button class="chatbot-toggle" onclick="toggleChatbot()" aria-label="Toggle chatbot">
-            💬
-        </button>
-        <div id="chatbotWindow" class="chatbot-window hidden">
-            <div class="chatbot-header">
-                <div>
-                    <strong>SpotShare AI Assistant</strong>
-                    <div style="font-size: 12px; color: var(--text-tertiary);">Always here to help</div>
-                </div>
-                <button class="modal-close" onclick="toggleChatbot()">&times;</button>
-            </div>
-            <div class="chatbot-messages" id="chatMessages">
-                <div class="message bot">
-                    <div class="message-bubble">
-                        Hi! I'm your SpotShare assistant. How can I help you today?
-                    </div>
-                </div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" id="chatInput" placeholder="Type your message..." 
-                       onkeypress="handleChatKeypress(event)">
-                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
             </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SpotShare. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        /* ===== STATE MANAGEMENT ===== */
-        // Global state object - In production, this would be managed by backend
-        const appState = {
-            currentUser: null,
-            theme: 'light',
-            parkingSpots: [],
-            userBookings: [],
-            ownerListings: []
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            themeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
         };
 
-        /* ===== INITIALIZATION ===== */
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load theme from localStorage
-            const savedTheme = localStorage.getItem('spotshare-theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-                appState.theme = 'dark';
-                updateThemeIcons();
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-            // Check for existing session
-            const savedUser = localStorage.getItem('spotshare-user');
-            if (savedUser) {
-                appState.currentUser = JSON.parse(savedUser);
-                showDashboard(appState.currentUser.role);
-            }
-
-            // Initialize mock data
-            initializeMockData();
-
-            // Setup form handlers
-            setupFormHandlers();
+        document.querySelectorAll('.feature-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
-
-        /* ===== THEME MANAGEMENT ===== */
-        function toggleTheme() {
-            const newTheme = appState.theme === 'light' ? 'dark' : 'light';
-            appState.theme = newTheme;
-            
-            if (newTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-            } else {
-                document.body.removeAttribute('data-theme');
-            }
-            
-            localStorage.setItem('spotshare-theme', newTheme);
-            updateThemeIcons();
-        }
-
-        function updateThemeIcons() {
-            const icon = appState.theme === 'dark' ? '☀️' : '🌙';
-            const themeIcons = document.querySelectorAll('#themeIcon, #dashboardThemeIcon, #ownerThemeIcon');
-            themeIcons.forEach(el => el.textContent = icon);
-        }
-
-        /* ===== NAVIGATION ===== */
-        function showLanding() {
-            document.getElementById('landingPage').classList.remove('hidden');
-            document.getElementById('authPage').classList.add('hidden');
-            document.getElementById('driverDashboard').classList.add('hidden');
-            document.getElementById('ownerDashboard').classList.add('hidden');
-        }
-
-        function showAuth(type) {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('authPage').classList.remove('hidden');
-            
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const title = document.getElementById('authTitle');
-            const subtitle = document.getElementById('authSubtitle');
-            
-            if (type === 'login') {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-                title.textContent = 'Welcome Back';
-                subtitle.textContent = 'Sign in to continue';
-            } else {
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-                title.textContent = 'Create Account';
-                subtitle.textContent = 'Join SpotShare today';
-                
-                // Pre-select role based on type
-                if (type === 'signup-owner') {
-                    selectRole('owner');
-                } else {
-                    selectRole('driver');
-                }
-            }
-        }
-
-        function showDashboard(role) {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('authPage').classList.add('hidden');
-            
-            if (role === 'driver') {
-                document.getElementById('driverDashboard').classList.remove('hidden');
-                renderParkingSpots();
-                renderUserBookings();
-            } else {
-                document.getElementById('ownerDashboard').classList.remove('hidden');
-                showOwnerSection('overview');
-                renderOwnerListings();
-                drawEarningsChart();
-            }
-        }
-
-        function showDriverSection(section) {
-            document.getElementById('searchSection').classList.add('hidden');
-            document.getElementById('bookingsSection').classList.add('hidden');
-            document.getElementById('profileSection').classList.add('hidden');
-            
-            if (section === 'search') {
-                document.getElementById('searchSection').classList.remove('hidden');
-            } else if (section === 'bookings') {
-                document.getElementById('bookingsSection').classList.remove('hidden');
-                renderUserBookings();
-            } else if (section === 'profile') {
-                document.getElementById('profileSection').classList.remove('hidden');
-                loadProfileData();
-            }
-            
-            updateSidebarActive();
-        }
-
-        function showOwnerSection(section) {
-            document.getElementById('overviewSection').classList.add('hidden');
-            document.getElementById('listingsSection').classList.add('hidden');
-            document.getElementById('addSpotSection').classList.add('hidden');
-            document.getElementById('earningsSection').classList.add('hidden');
-            
-            if (section === 'overview') {
-                document.getElementById('overviewSection').classList.remove('hidden');
-                drawEarningsChart();
-            } else if (section === 'listings') {
-                document.getElementById('listingsSection').classList.remove('hidden');
-                renderOwnerListings();
-            } else if (section === 'add') {
-                document.getElementById('addSpotSection').classList.remove('hidden');
-            } else if (section === 'earnings') {
-                document.getElementById('earningsSection').classList.remove('hidden');
-                drawBookingChart();
-            }
-            
-            updateSidebarActive();
-        }
-
-        function updateSidebarActive() {
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.classList.remove('active');
-            });
-        }
-
-        /* ===== AUTHENTICATION ===== */
-        function selectRole(role) {
-            document.querySelectorAll('.role-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            document.querySelector(`[data-role="${role}"]`).classList.add('active');
-            document.getElementById('userRole').value = role;
-        }
-
-        function setupFormHandlers() {
-            // Login form
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                // BACKEND INTEGRATION POINT: Replace with actual API call
-                // Example: fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) })
-                
-                // Mock authentication
-                if (email && password) {
-                    const user = {
-                        id: Date.now(),
-                        email: email,
-                        name: 'Demo User',
-                        role: 'driver' // In production, this would come from backend
-                    };
-                    
-                    appState.currentUser = user;
-                    localStorage.setItem('spotshare-user', JSON.stringify(user));
-                    showDashboard(user.role);
-                }
-            });
-
-            // Signup form
-            document.getElementById('signupForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('signupName').value;
-                const email = document.getElementById('signupEmail').value;
-                const phone = document.getElementById('signupPhone').value;
-                const password = document.getElementById('signupPassword').value;
-                const role = document.getElementById('userRole').value;
-                
-                // BACKEND INTEGRATION POINT: Replace with actual API call
-                // Example: fetch('/api/auth/signup', { method: 'POST', body: JSON.stringify({ name, email, phone, password, role }) })
-                
-                // Mock signup
-                const user = {
-                    id: Date.now(),
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    role: role
-                };
-                
-                appState.currentUser = user;
-                localStorage.setItem('spotshare-user', JSON.stringify(user));
-                showDashboard(role);
-            });
-
-            // Booking form
-            document.getElementById('bookingForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleBookingSubmit();
-            });
-
-            // Add spot form
-            document.getElementById('addSpotForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleAddSpot();
-            });
-
-            // Profile form
-            document.getElementById('profileForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleProfileUpdate();
-            });
-
-            // Booking time changes
-            document.getElementById('bookingStart').addEventListener('change', updateBookingSummary);
-            document.getElementById('bookingEnd').addEventListener('change', updateBookingSummary);
-        }
-
-        function logout() {
-            // BACKEND INTEGRATION POINT: Clear session on server
-            // Example: fetch('/api/auth/logout', { method: 'POST' })
-            
-            appState.currentUser = null;
-            localStorage.removeItem('spotshare-user');
-            showLanding();
-        }
-
-        /* ===== MOCK DATA INITIALIZATION ===== */
-        function initializeMockData() {
-            // BACKEND INTEGRATION POINT: Replace with actual API calls
-            // Example: fetch('/api/spots').then(res => res.json()).then(spots => appState.parkingSpots = spots)
-            
-            appState.parkingSpots = [
-                {
-                    id: 1,
-                    title: 'Downtown Secure Garage',
-                    address: '123 Main St, Downtown',
-                    price: 5.00,
-                    type: 'garage',
-                    covered: true,
-                    evCharging: false,
-                    available: true,
-                    rating: 4.8,
-                    distance: '0.3 miles'
-                },
-                {
-                    id: 2,
-                    title: 'Shopping District Parking',
-                    address: '456 Commerce Ave',
-                    price: 3.50,
-                    type: 'lot',
-                    covered: false,
-                    evCharging: true,
-                    available: true,
-                    rating: 4.5,
-                    distance: '0.7 miles'
-                },
-                {
-                    id: 3,
-                    title: 'Residential Driveway',
-                    address: '789 Oak Street',
-                    price: 4.00,
-                    type: 'driveway',
-                    covered: true,
-                    evCharging: false,
-                    available: true,
-                    rating: 4.9,
-                    distance: '1.2 miles'
-                },
-                {
-                    id: 4,
-                    title: 'Office Building Parking',
-                    address: '321 Business Blvd',
-                    price: 6.00,
-                    type: 'garage',
-                    covered: true,
-                    evCharging: true,
-                    available: false,
-                    rating: 4.7,
-                    distance: '0.5 miles'
-                }
-            ];
-
-            appState.userBookings = [
-                {
-                    id: 1,
-                    spotTitle: 'Downtown Secure Garage',
-                    address: '123 Main St',
-                    startTime: '2025-10-15T09:00',
-                    endTime: '2025-10-15T17:00',
-                    total: 42.50,
-                    status: 'upcoming',
-                    vehicle: 'ABC-1234'
-                }
-            ];
-
-            appState.ownerListings = [
-                {
-                    id: 1,
-                    title: 'Downtown Secure Garage',
-                    address: '123 Main St',
-                    price: 5.00,
-                    type: 'garage',
-                    bookings: 45,
-                    earnings: 1125.00,
-                    status: 'active'
-                },
-                {
-                    id: 2,
-                    title: 'Residential Driveway',
-                    address: '789 Oak Street',
-                    price: 4.00,
-                    type: 'driveway',
-                    bookings: 32,
-                    earnings: 896.00,
-                    status: 'active'
-                }
-            ];
-        }
-
-        /* ===== PARKING SPOTS RENDERING ===== */
-        function renderParkingSpots() {
-            const grid = document.getElementById('spotsGrid');
-            grid.innerHTML = '';
-            
-            appState.parkingSpots.forEach(spot => {
-                const card = document.createElement('div');
-                card.className = 'card spot-card';
-                card.innerHTML = `
-                    <div class="spot-image">🅿️</div>
-                    <div class="spot-info">
-                        <h3>${spot.title}</h3>
-                        <p style="color: var(--text-secondary); font-size: 14px;">${spot.address}</p>
-                        <div class="spot-details">
-                            <span>📍 ${spot.distance}</span>
-                            <span>⭐ ${spot.rating}</span>
-                            <span>${spot.type}</span>
-                        </div>
-                        <div style="margin: 12px 0;">
-                            ${spot.covered ? '<span class="badge badge-success">Covered</span>' : ''}
-                            ${spot.evCharging ? '<span class="badge badge-success">EV Charging</span>' : ''}
-                            ${spot.available ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Occupied</span>'}
-                        </div>
-                        <div class="spot-price">${spot.price.toFixed(2)}/hr</div>
-                        <button class="btn btn-primary" style="width: 100%;" 
-                                onclick="openBookingModal(${spot.id})" 
-                                ${!spot.available ? 'disabled' : ''}>
-                            ${spot.available ? 'Book Now' : 'Not Available'}
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function searchSpots() {
-            const location = document.getElementById('searchLocation').value;
-            
-            // BACKEND INTEGRATION POINT: Replace with actual API call
-            // Example: fetch(`/api/spots/search?location=${encodeURIComponent(location)}`)
-            
-            // Mock search - just re-render existing spots
-            if (location) {
-                console.log('Searching for spots near:', location);
-                renderParkingSpots();
-            }
-        }
-
-        /* ===== BOOKING MANAGEMENT ===== */
-        let currentBookingSpot = null;
-
-        function openBookingModal(spotId) {
-            const spot = appState.parkingSpots.find(s => s.id === spotId);
-            if (!spot) return;
-            
-            currentBookingSpot = spot;
-            
-            const detailsDiv = document.getElementById('bookingSpotDetails');
-            detailsDiv.innerHTML = `
-                <div class="card" style="margin-bottom: 20px;">
-                    <h3>${spot.title}</h3>
-                    <p style="color: var(--text-secondary);">${spot.address}</p>
-                    <div style="margin-top: 12px;">
-                        ${spot.covered ? '<span class="badge badge-success">Covered</span>' : ''}
-                        ${spot.evCharging ? '<span class="badge badge-success">EV Charging</span>' : ''}
-                    </div>
-                </div>
-            `;
-            
-            // Set default times (now to 2 hours from now)
-            const now = new Date();
-            const later = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-            document.getElementById('bookingStart').value = formatDateTimeLocal(now);
-            document.getElementById('bookingEnd').value = formatDateTimeLocal(later);
-            
-            updateBookingSummary();
-            document.getElementById('bookingModal').classList.remove('hidden');
-        }
-
-        function closeBookingModal() {
-            document.getElementById('bookingModal').classList.add('hidden');
-            currentBookingSpot = null;
-        }
-
-        function updateBookingSummary() {
-            if (!currentBookingSpot) return;
-            
-            const start = new Date(document.getElementById('bookingStart').value);
-            const end = new Date(document.getElementById('bookingEnd').value);
-            
-            if (start && end && end > start) {
-                const hours = (end - start) / (1000 * 60 * 60);
-                const subtotal = hours * currentBookingSpot.price;
-                const fee = subtotal * 0.05; // 5% service fee
-                const total = subtotal + fee;
-                
-                document.getElementById('summaryRate').textContent = `${currentBookingSpot.price.toFixed(2)}`;
-                document.getElementById('summaryDuration').textContent = `${hours.toFixed(1)} hours`;
-                document.getElementById('summarySubtotal').textContent = `${subtotal.toFixed(2)}`;
-                document.getElementById('summaryFee').textContent = `${fee.toFixed(2)}`;
-                document.getElementById('summaryTotal').textContent = `${total.toFixed(2)}`;
-            }
-        }
-
-        function handleBookingSubmit() {
-            const start = document.getElementById('bookingStart').value;
-            const end = document.getElementById('bookingEnd').value;
-            const vehicle = document.getElementById('vehicleNumber').value;
-            const total = parseFloat(document.getElementById('summaryTotal').textContent.replace(', ''));
-            
-            // BACKEND INTEGRATION POINT: Replace with actual API call
-            // Example: fetch('/api/bookings', { method: 'POST', body: JSON.stringify({ spotId, start, end, vehicle }) })
-            
-            const booking = {
-                id: Date.now(),
-                spotId: currentBookingSpot.id,
-                spotTitle: currentBookingSpot.title,
-                address: currentBookingSpot.address,
-                startTime: start,
-                endTime: end,
-                vehicle: vehicle,
-                total: total,
-                status: 'upcoming'
-            };
-            
-            appState.userBookings.push(booking);
-            closeBookingModal();
-            showConfirmation(booking);
-        }
-
-        function showConfirmation(booking) {
-            const modal = document.getElementById('confirmationModal');
-            const details = document.getElementById('confirmationDetails');
-            
-            details.innerHTML = `
-                <div class="booking-summary">
-                    <h3 style="margin-bottom: 16px;">Booking Details</h3>
-                    <div class="summary-row">
-                        <span>Location</span>
-                        <strong>${booking.spotTitle}</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Address</span>
-                        <strong>${booking.address}</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Start Time</span>
-                        <strong>${formatDateTime(booking.startTime)}</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>End Time</span>
-                        <strong>${formatDateTime(booking.endTime)}</strong>
-                    </div>
-                    <div class="summary-row">
-                        <span>Vehicle</span>
-                        <strong>${booking.vehicle}</strong>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total Paid</span>
-                        <strong>${booking.total.toFixed(2)}</strong>
-                    </div>
-                </div>
-            `;
-            
-            // Generate QR code
-            const qr = new QRious({
-                element: document.getElementById('qrCode'),
-                value: `SPOTSHARE-BOOKING-${booking.id}`,
-                size: 200
-            });
-            
-            modal.classList.remove('hidden');
-        }
-
-        function closeConfirmationModal() {
-            document.getElementById('confirmationModal').classList.add('hidden');
-            renderUserBookings();
-        }
-
-        function renderUserBookings() {
-            const list = document.getElementById('bookingsList');
-            list.innerHTML = '';
-            
-            if (appState.userBookings.length === 0) {
-                list.innerHTML = '<div class="card"><p style="text-align: center; color: var(--text-secondary);">No bookings yet. Find a parking spot to get started!</p></div>';
-                return;
-            }
-            
-            appState.userBookings.forEach(booking => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                        <div>
-                            <h3>${booking.spotTitle}</h3>
-                            <p style="color: var(--text-secondary); margin: 8px 0;">${booking.address}</p>
-                            <div style="margin: 12px 0;">
-                                <div style="margin: 4px 0;">⏰ ${formatDateTime(booking.startTime)} - ${formatDateTime(booking.endTime)}</div>
-                                <div style="margin: 4px 0;">🚗 Vehicle: ${booking.vehicle}</div>
-                            </div>
-                            <span class="badge ${booking.status === 'upcoming' ? 'badge-success' : 'badge-warning'}">
-                                ${booking.status.toUpperCase()}
-                            </span>
-                        </div>
-                        <div style="text-align: right;">
-                            <div class="spot-price" style="margin: 0;">${booking.total.toFixed(2)}</div>
-                            <button class="btn btn-secondary" style="margin-top: 12px;" onclick="viewBookingQR(${booking.id})">
-                                View QR Code
-                            </button>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function viewBookingQR(bookingId) {
-            const booking = appState.userBookings.find(b => b.id === bookingId);
-            if (booking) {
-                showConfirmation(booking);
-            }
-        }
-
-        /* ===== OWNER DASHBOARD FUNCTIONS ===== */
-        function renderOwnerListings() {
-            const list = document.getElementById('ownerSpotsList');
-            list.innerHTML = '';
-            
-            if (appState.ownerListings.length === 0) {
-                list.innerHTML = '<div class="card"><p style="text-align: center; color: var(--text-secondary);">No listings yet. Add your first parking space!</p></div>';
-                return;
-            }
-            
-            appState.ownerListings.forEach(spot => {
-                const card = document.createElement('div');
-                card.className = 'card spot-card';
-                card.innerHTML = `
-                    <div class="spot-image">🅿️</div>
-                    <div class="spot-info">
-                        <h3>${spot.title}</h3>
-                        <p style="color: var(--text-secondary); font-size: 14px;">${spot.address}</p>
-                        <div class="spot-price">${spot.price.toFixed(2)}/hr</div>
-                        <div style="margin: 16px 0;">
-                            <div style="display: flex; justify-content: space-between; margin: 8px 0;">
-                                <span style="color: var(--text-secondary);">Total Bookings</span>
-                                <strong>${spot.bookings}</strong>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin: 8px 0;">
-                                <span style="color: var(--text-secondary);">Total Earnings</span>
-                                <strong style="color: var(--success);">${spot.earnings.toFixed(2)}</strong>
-                            </div>
-                        </div>
-                        <span class="badge ${spot.status === 'active' ? 'badge-success' : 'badge-warning'}">
-                            ${spot.status.toUpperCase()}
-                        </span>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px;">
-                            <button class="btn btn-secondary" onclick="editSpot(${spot.id})">Edit</button>
-                            <button class="btn btn-secondary" onclick="toggleSpotStatus(${spot.id})">
-                                ${spot.status === 'active' ? 'Deactivate' : 'Activate'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function handleAddSpot() {
-            const title = document.getElementById('spotTitle').value;
-            const address = document.getElementById('spotAddress').value;
-            const description = document.getElementById('spotDescription').value;
-            const price = parseFloat(document.getElementById('spotPrice').value);
-            const type = document.getElementById('spotType').value;
-            const covered = document.getElementById('spotCovered').checked;
-            const evCharging = document.getElementById('spotEV').checked;
-            
-            // BACKEND INTEGRATION POINT: Replace with actual API call
-            // Example: fetch('/api/spots', { method: 'POST', body: JSON.stringify({ title, address, description, price, type, covered, evCharging }) })
-            
-            const newSpot = {
-                id: Date.now(),
-                title,
-                address,
-                description,
-                price,
-                type,
-                covered,
-                evCharging,
-                bookings: 0,
-                earnings: 0,
-                status: 'active'
-            };
-            
-            appState.ownerListings.push(newSpot);
-            appState.parkingSpots.push({
-                ...newSpot,
-                available: true,
-                rating: 5.0,
-                distance: 'New listing'
-            });
-            
-            document.getElementById('addSpotForm').reset();
-            showOwnerSection('listings');
-            
-            // Show success message
-            alert('Parking spot listed successfully!');
-        }
-
-        function editSpot(spotId) {
-            // BACKEND INTEGRATION POINT: Implement edit functionality
-            alert('Edit functionality would open a form to modify spot details');
-        }
-
-        function toggleSpotStatus(spotId) {
-            // BACKEND INTEGRATION POINT: Replace with actual API call
-            const spot = appState.ownerListings.find(s => s.id === spotId);
-            if (spot) {
-                spot.status = spot.status === 'active' ? 'inactive' : 'active';
-                renderOwnerListings();
-            }
-        }
-
-        /* ===== CHARTS ===== */
-        function drawEarningsChart() {
-            const canvas = document.getElementById('earningsChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, width, height);
-            
-            // Mock data for 6 months
-            const months = ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
-            const earnings = [1200, 1450, 1800, 2100, 2300, 2450];
-            
-            // Calculate dimensions
-            const padding = 50;
-            const chartWidth = width - padding * 2;
-            const chartHeight = height - padding * 2;
-            const maxEarning = Math.max(...earnings);
-            const barWidth = chartWidth / months.length - 20;
-            
-            // Get theme colors
-            const isDark = appState.theme === 'dark';
-            const textColor = isDark ? '#cbd5e1' : '#475569';
-            const gridColor = isDark ? '#334155' : '#e2e8f0';
-            const barColor = '#3b82f6';
-            
-            // Draw grid lines
-            ctx.strokeStyle = gridColor;
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= 5; i++) {
-                const y = padding + (chartHeight / 5) * i;
-                ctx.beginPath();
-                ctx.moveTo(padding, y);
-                ctx.lineTo(width - padding, y);
-                ctx.stroke();
-            }
-            
-            // Draw bars
-            ctx.fillStyle = barColor;
-            earnings.forEach((earning, index) => {
-                const x = padding + index * (chartWidth / months.length) + 10;
-                const barHeight = (earning / maxEarning) * chartHeight;
-                const y = height - padding - barHeight;
-                
-                ctx.fillRect(x, y, barWidth, barHeight);
-            });
-            
-            // Draw labels
-            ctx.fillStyle = textColor;
-            ctx.font = '14px sans-serif';
-            ctx.textAlign = 'center';
-            
-            months.forEach((month, index) => {
-                const x = padding + index * (chartWidth / months.length) + barWidth / 2 + 10;
-                ctx.fillText(month, x, height - padding + 20);
-                
-                const y = height - padding - (earnings[index] / maxEarning) * chartHeight - 10;
-                ctx.fillText(' + earnings[index], x, y);
-            });
-        }
-
-        function drawBookingChart() {
-            const canvas = document.getElementById('bookingChart');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, width, height);
-            
-            // Mock data for booking trends
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const bookings = [12, 15, 18, 14, 20, 25, 22];
-            
-            const padding = 50;
-            const chartWidth = width - padding * 2;
-            const chartHeight = height - padding * 2;
-            const maxBooking = Math.max(...bookings);
-            
-            // Get theme colors
-            const isDark = appState.theme === 'dark';
-            const textColor = isDark ? '#cbd5e1' : '#475569';
-            const gridColor = isDark ? '#334155' : '#e2e8f0';
-            const lineColor = '#8b5cf6';
-            
-            // Draw grid
-            ctx.strokeStyle = gridColor;
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= 5; i++) {
-                const y = padding + (chartHeight / 5) * i;
-                ctx.beginPath();
-                ctx.moveTo(padding, y);
-                ctx.lineTo(width - padding, y);
-                ctx.stroke();
-            }
-            
-            // Draw line chart
-            ctx.strokeStyle = lineColor;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            
-            bookings.forEach((booking, index) => {
-                const x = padding + (index * (chartWidth / (days.length - 1)));
-                const y = height - padding - (booking / maxBooking) * chartHeight;
-                
-                if (index === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-            });
-            
-            ctx.stroke();
-            
-            // Draw points
-            ctx.fillStyle = lineColor;
-            bookings.forEach((booking, index) => {
-                const x = padding + (index * (chartWidth / (days.length - 1)));
-                const y = height - padding - (booking / maxBooking) * chartHeight;
-                
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            
-            // Draw labels
-            ctx.fillStyle = textColor;
-            ctx.font = '14px sans-serif';
-            ctx.textAlign = 'center';
-            
-            days.forEach((day, index) => {
-                const x = padding + (index * (chartWidth / (days.length - 1)));
-                ctx.fillText(day, x, height - padding + 20);
-            });
-        }
-
-        /* ===== PROFILE MANAGEMENT ===== */
-        function loadProfileData() {
-            if (appState.currentUser) {
-                document.getElementById('profileName').value = appState.currentUser.name || '';
-                document.getElementById('profileEmail').value = appState.currentUser.email || '';
-                document.getElementById('profilePhone').value = appState.currentUser.phone || '';
-            }
-        }
-
-        function handleProfileUpdate() {
-            const name = document.getElementById('profileName').value;
-            const email = document.getElementById('profileEmail').value;
-            const phone = document.getElementById('profilePhone').value;
-            
-            // BACKEND INTEGRATION POINT: Replace with actual API call
-            // Example: fetch('/api/user/profile', { method: 'PUT', body: JSON.stringify({ name, email, phone }) })
-            
-            appState.currentUser.name = name;
-            appState.currentUser.email = email;
-            appState.currentUser.phone = phone;
-            
-            localStorage.setItem('spotshare-user', JSON.stringify(appState.currentUser));
-            alert('Profile updated successfully!');
-        }
-
-        /* ===== CHATBOT ===== */
-        function toggleChatbot() {
-            const window = document.getElementById('chatbotWindow');
-            window.classList.toggle('hidden');
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // Add user message
-            addChatMessage(message, 'user');
-            input.value = '';
-            
-            // BACKEND INTEGRATION POINT: Replace with actual GenAI API call
-            // Example: fetch('/api/chat', { method: 'POST', body: JSON.stringify({ message }) })
-            //   .then(res => res.json())
-            //   .then(data => addChatMessage(data.response, 'bot'))
-            
-            // Mock AI response
-            setTimeout(() => {
-                const responses = [
-                    "I can help you find the perfect parking spot! What area are you looking for?",
-                    "Our platform offers secure, verified parking spaces. Would you like to search by location or price?",
-                    "You can book parking spots instantly. Need help with the booking process?",
-                    "For parking owners, we provide analytics and dynamic pricing. Interested in listing your space?",
-                    "I'm here to assist! Feel free to ask about bookings, pricing, or any features."
-                ];
-                const response = responses[Math.floor(Math.random() * responses.length)];
-                addChatMessage(response, 'bot');
-            }, 1000);
-        }
-
-        function addChatMessage(text, sender) {
-            const messagesDiv = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            messageDiv.innerHTML = `
-                <div class="message-bubble">${text}</div>
-            `;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function handleChatKeypress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        /* ===== UTILITY FUNCTIONS ===== */
-        function formatDateTimeLocal(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
-
-        function formatDateTime(dateTimeString) {
-            const date = new Date(dateTimeString);
-            return date.toLocaleString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            });
-        }
-
-        /* ===== ACCESSIBILITY ENHANCEMENTS ===== */
-        // Handle keyboard navigation for modal close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const bookingModal = document.getElementById('bookingModal');
-                const confirmationModal = document.getElementById('confirmationModal');
-                
-                if (!bookingModal.classList.contains('hidden')) {
-                    closeBookingModal();
-                }
-                if (!confirmationModal.classList.contains('hidden')) {
-                    closeConfirmationModal();
-                }
-            }
-        });
-
-        // Focus management for modals
-        function trapFocus(element) {
-            const focusableElements = element.querySelectorAll(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            element.addEventListener('keydown', (e) => {
-                if (e.key === 'Tab') {
-                    if (e.shiftKey) {
-                        if (document.activeElement === firstElement) {
-                            lastElement.focus();
-                            e.preventDefault();
-                        }
-                    } else {
-                        if (document.activeElement === lastElement) {
-                            firstElement.focus();
-                            e.preventDefault();
-                        }
-                    }
-                }
-            });
-        }
-
-        /* ===== PERFORMANCE OPTIMIZATIONS ===== */
-        // Debounce search input
-        let searchTimeout;
-        document.getElementById('searchLocation')?.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                // BACKEND INTEGRATION POINT: Implement autocomplete
-                console.log('Searching for:', e.target.value);
-            }, 300);
-        });
-
-        // Lazy load images (placeholder for future implementation)
-        function lazyLoadImages() {
-            const images = document.querySelectorAll('img[data-src]');
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                        observer.unobserve(img);
-                    }
-                });
-            });
-
-            images.forEach(img => imageObserver.observe(img));
-        }
-
-        /* ===== ERROR HANDLING ===== */
-        window.addEventListener('error', (event) => {
-            console.error('Application error:', event.error);
-            // BACKEND INTEGRATION POINT: Send error reports to backend
-            // Example: fetch('/api/errors', { method: 'POST', body: JSON.stringify({ error: event.error.message }) })
-        });
-
-        /* ===== SERVICE WORKER (Progressive Web App Support) ===== */
-        // Uncomment to enable PWA features
-        /*
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('SW registered:', registration))
-                    .catch(error => console.log('SW registration failed:', error));
-            });
-        }
-        */
     </script>
 </body>
 </html>
