@@ -5,7 +5,7 @@ A modern, responsive landing page for a parking space sharing platform that conn
 ## Features
 
 ### 🎨 Design & UI
-- **Modern Gradient Design** - Eye-catching gradient hero section with animated background
+- **Modern Gradient Design** - Eye-catching gradient hero section with animated background 
 - **Dark Mode Support** - Toggle between light and dark themes with persistent storage
 - **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
 - **Smooth Animations** - Fade-in effects, hover transitions, and scroll animations
