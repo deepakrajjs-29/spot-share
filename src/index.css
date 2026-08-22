@@ -181,4 +181,14 @@
   .pro-table-row {
     @apply border-b border-slate-100 last:border-b-0 transition-colors hover:bg-slate-50/60;
   }
+
+  /* ───── Hero Background Mobile Responsiveness ───── */
+  @media (max-width: 768px) {
+    .hero-bg-image {
+      background-size: 100% auto !important;
+      background-position: center 70px !important;
+      background-repeat: no-repeat !important;
+      transform: none !important;
+    }
+  }
 }

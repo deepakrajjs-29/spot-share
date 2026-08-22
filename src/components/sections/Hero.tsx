@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
     >
       {/* Background image with gradient depth */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transform transition-transform duration-1000"
+        className="hero-bg-image absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transform transition-transform duration-1000"
         style={{ backgroundImage: 'url(/bg.jpg)' }}
       />
 
