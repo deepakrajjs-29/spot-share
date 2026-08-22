@@ -81,7 +81,7 @@ export const ContactSection: React.FC = () => {
               </p>
               <a
                 href={`mailto:${CONFIG.CONTACT_EMAIL}?subject=Inquiry%20regarding%20SNSECT%E2%80%9927`}
-                className="flex-shrink-0 px-6 py-2.5 text-xs font-extrabold uppercase tracking-wider bg-[#c9a84c] hover:bg-[#e8c872] text-slate-950 rounded-lg shadow-md transition-all hover:scale-105"
+                className="w-full sm:w-auto flex-shrink-0 px-6 py-2.5 text-xs font-extrabold uppercase tracking-wider bg-[#c9a84c] hover:bg-[#e8c872] text-slate-950 rounded-lg shadow-md transition-all hover:scale-105 text-center flex items-center justify-center"
               >
                 Email Secretariat
               </a>
@@ -107,7 +107,7 @@ export const ContactSection: React.FC = () => {
                 href={CONFIG.MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-[#c9a84c] hover:bg-[#e8c872] text-slate-950 shadow-sm transition-all flex items-center gap-1.5 shrink-0"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-[#c9a84c] hover:bg-[#e8c872] text-slate-950 shadow-md transition-all flex items-center justify-center gap-1.5 shrink-0"
               >
                 <span>Open in Google Maps</span>
                 <span className="text-xs">↗</span>

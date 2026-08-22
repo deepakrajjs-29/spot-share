@@ -87,9 +87,9 @@ export const ABOUT_INSTITUTION = {
     { value: "2002", label: "Year Established", icon: "Calendar" },
     { value: "A++", label: "NAAC Accreditation", icon: "Award" },
     { value: "17", label: "UG Programmes", icon: "BookOpen" },
-    { value: "2", label: "PG programs", icon: "Users" },
+    { value: "2", label: "PG programmes", icon: "Users" },
     { value: "5", label: "AU Research Centres", icon: "Compass" },
-
+    { value: "1400+", label: "Students Placed", icon: "GraduationCap" },
     { value: "360+", label: "Recruiting Partners", icon: "Building2" },
     { value: "53 LPA", label: "Highest Package", icon: "TrendingUp" },
     { value: "GDTA", label: "Global DT Alliance", icon: "Globe" }

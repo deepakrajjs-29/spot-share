@@ -89,13 +89,14 @@ export const PublicationOpportunities: React.FC = () => {
                   Springer's LNEE series is indexed in major academic databases including EI Compendex, Scopus, INSPEC, and SCImago. Authors will receive electronic copy access upon final publication.
                 </p>
 
-                <div className="pt-2 flex flex-wrap gap-3">
+                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <CTAButton
                     href={CONFIG.SPRINGER_LNEE_URL}
                     isExternal={true}
                     variant="primary"
                     size="md"
                     icon="external"
+                    className="w-full sm:w-auto"
                   >
                     Visit Springer LNEE Series
                   </CTAButton>
@@ -104,6 +105,7 @@ export const PublicationOpportunities: React.FC = () => {
                     variant="outline"
                     size="md"
                     icon="none"
+                    className="w-full sm:w-auto"
                   >
                     View Author Guidelines
                   </CTAButton>

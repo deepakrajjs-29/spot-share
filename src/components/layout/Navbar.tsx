@@ -51,10 +51,10 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-navy-950/97 backdrop-blur-md border-b border-white/10 '
-          : 'bg-navy-950 border-b border-white/8'
+          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm'
+          : 'bg-navy-950/90 backdrop-blur-md border-b border-white/10'
       }`}
     >
       <div className="max-w-[1480px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
@@ -71,11 +71,19 @@ export const Navbar: React.FC = () => {
               className="h-10 w-auto object-contain"
             />
             <div className="flex flex-col leading-tight">
-              <span className="text-base lg:text-[17px] font-extrabold tracking-tight text-white">
+              <span className={`text-base lg:text-[17px] font-extrabold tracking-tight transition-colors duration-300 ${
+                isScrolled ? 'text-slate-900' : 'text-white'
+              }`}>
                 {CONFERENCE_INFO.shortTitle}
-                <span className="hidden xl:inline text-[#e8c872] font-semibold text-xs ml-2 tracking-[0.05em]">· 11–12 March 2027</span>
+                <span className={`hidden xl:inline font-semibold text-xs ml-2 tracking-[0.05em] ${
+                  isScrolled ? 'text-[#b8963e]' : 'text-[#e8c872]'
+                }`}>
+                  · 11–12 March 2027
+                </span>
               </span>
-              <span className="text-[11px] text-slate-300 font-normal hidden md:block leading-tight mt-0.5">
+              <span className={`text-[11px] font-normal hidden md:block leading-tight mt-0.5 transition-colors duration-300 ${
+                isScrolled ? 'text-slate-600' : 'text-slate-300'
+              }`}>
                 SNS College of Technology, Coimbatore
               </span>
             </div>
@@ -91,8 +99,12 @@ export const Navbar: React.FC = () => {
                   href={item.href}
                   className={`px-3 xl:px-3.5 py-2 text-[11px] xl:text-xs font-semibold uppercase tracking-[0.07em] rounded-lg transition-all duration-200 whitespace-nowrap ${
                     isActive
-                      ? 'text-[#f3d688] bg-white/10 shadow-sm border border-[#c9a84c]/30'
-                      : 'text-slate-300 hover:text-white hover:bg-white/10'
+                      ? isScrolled
+                        ? 'text-[#b8963e] bg-amber-50/90 shadow-xs border border-[#c9a84c]/40 font-bold'
+                        : 'text-[#f3d688] bg-white/10 shadow-sm border border-[#c9a84c]/30 font-bold'
+                      : isScrolled
+                        ? 'text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-semibold'
+                        : 'text-slate-300 hover:text-white hover:bg-white/10 font-semibold'
                   }`}
                 >
                   {item.name}
@@ -107,7 +119,11 @@ export const Navbar: React.FC = () => {
               href={CONFIG.REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#f3d688] hover:text-white hover:bg-white/15 border border-[#c9a84c]/50 rounded-lg transition-all shadow-sm"
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-sm ${
+                isScrolled
+                  ? 'text-[#b8963e] hover:text-[#97782c] hover:bg-amber-50/80 border border-[#c9a84c] bg-white'
+                  : 'text-[#f3d688] hover:text-white hover:bg-white/15 border border-[#c9a84c]/50'
+              }`}
             >
               Register
             </a>
@@ -127,14 +143,18 @@ export const Navbar: React.FC = () => {
               href={CONFIG.SUBMISSION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="sm:hidden px-3 py-1.5 text-xs font-bold rounded-md bg-[#b8963e] text-slate-900"
+              className="sm:hidden px-3 py-1.5 text-xs font-bold rounded-md bg-[#b8963e] text-slate-950"
             >
               Submit
             </a>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md bg-navy-900 text-slate-300 hover:text-slate-900 border border-white/10 focus:outline-none"
+              className={`p-2 rounded-md border focus:outline-none transition-colors duration-200 ${
+                isScrolled
+                  ? 'bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-300'
+                  : 'bg-navy-900 text-slate-300 hover:text-white border-white/10'
+              }`}
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

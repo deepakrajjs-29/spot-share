@@ -67,6 +67,7 @@ export const RegistrationSection: React.FC = () => {
             variant="primary"
             size="md"
             icon="external"
+            className="w-full sm:w-auto"
             disabledNotice="Registration portal link will be communicated in acceptance notification"
           >
             Register via Microsoft CMT

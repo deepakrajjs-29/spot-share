@@ -92,12 +92,12 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-10 w-full max-w-md sm:max-w-none">
             <a
               href={CONFIG.SUBMISSION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider rounded-xl shadow-[0_4px_20px_rgba(201,168,76,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider rounded-xl shadow-[0_4px_20px_rgba(201,168,76,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               style={{ backgroundColor: '#c9a84c', color: '#091322' }}
             >
               <span>Submit Your Paper</span>
@@ -107,7 +107,7 @@ export const Hero: React.FC = () => {
               href={CONFIG.REGISTRATION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3.5 text-sm sm:text-base font-bold uppercase tracking-wider rounded-xl border-2 transition-all duration-300 hover:bg-white/15 active:scale-95 shadow-md flex items-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider rounded-xl border-2 transition-all duration-300 hover:bg-white/15 active:scale-95 shadow-md flex items-center justify-center gap-2"
               style={{ borderColor: '#c9a84c', color: '#f3d688', backgroundColor: 'rgba(201, 168, 76, 0.08)' }}
             >
               <span>Register Now</span>

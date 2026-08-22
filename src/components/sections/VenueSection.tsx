@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SectionHeading } from '../common/SectionHeading';
 import { VENUE_DETAILS } from '../../data/conference';
 import { CONFIG } from '../../data/config';
-import { MapPin, Building, AlertCircle, ExternalLink, Navigation, Compass } from 'lucide-react';
+import { MapPin, Building, AlertCircle, ExternalLink, Navigation, Compass, Calendar, Clock } from 'lucide-react';
 import { CTAButton } from '../common/CTAButton';
 
 export const VenueSection: React.FC = () => {
@@ -55,49 +55,67 @@ export const VenueSection: React.FC = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-2 flex flex-wrap gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <CTAButton
                 href={CONFIG.MAP_URL}
                 isExternal={true}
                 variant="primary"
                 size="md"
                 icon="external"
+                className="w-full sm:w-auto"
               >
                 View on Google Maps
               </CTAButton>
-              <button
-                type="button"
+              <CTAButton
                 onClick={() => setShowMapModal(true)}
-                className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-slate-200 hover:bg-white text-slate-700 transition-colors shadow-2xs"
+                variant="outline"
+                size="md"
+                icon="none"
+                className="w-full sm:w-auto"
               >
                 Preview Map
-              </button>
+              </CTAButton>
             </div>
           </div>
 
-          {/* Program Schedule — Coming Soon */}
-          <div className="lg:col-span-5 rounded-2xl bg-navy-950 text-white border border-white/10 shadow-xl flex flex-col items-center overflow-hidden min-h-[340px]">
-            {/* Heading */}
-            <div className="w-full px-6 pt-6 pb-4 text-center">
-              <h4 className="text-lg sm:text-xl font-bold text-white tracking-wide">
+          {/* Program Schedule — Paper Presentation Coming Soon */}
+          <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-navy-950 via-slate-900 to-navy-950 text-white border border-white/15 shadow-xl flex flex-col items-center justify-between overflow-hidden min-h-[360px] p-7 sm:p-8 text-center relative">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-0 right-0 w-36 h-36 bg-[#c9a84c]/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-36 h-36 bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
+
+            {/* Header: PROGRAM SCHEDULE + Gold Line + PAPER PRESENTATION */}
+            <div className="relative z-10 w-full flex flex-col items-center">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#c9a84c] mb-1.5 block">
+                CONFERENCE SESSIONS
+              </span>
+              <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Program Schedule
               </h4>
+              <div className="w-10 h-1 rounded mt-2.5 mb-2 mx-auto" style={{ backgroundColor: '#c9a84c' }} />
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-300">
+                Paper Presentation
+              </p>
             </div>
 
-            {/* Image */}
-            <div className="w-full flex-1 overflow-hidden">
-              <img
-                src="/program_schedule.png"
-                alt="Program Schedule"
-                className="w-full h-full object-cover opacity-80"
-                style={{ maxHeight: '220px' }}
-              />
+            {/* Visual Icon: Academic Calendar / Timetable */}
+            <div className="relative z-10 my-5 flex flex-col items-center justify-center">
+              <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md flex items-center justify-center shadow-inner transition-transform duration-300 hover:scale-105">
+                <Calendar className="w-8 h-8 sm:w-9 sm:h-9 text-[#f3d688]" />
+              </div>
+              <span className="text-[11px] text-slate-400 mt-2.5 font-medium tracking-wide">
+                11–12 March 2027 · Hybrid Mode
+              </span>
             </div>
 
-            {/* Coming Soon */}
-            <div className="w-full px-6 py-5 text-center">
-              <p className="text-xs sm:text-sm text-[#f3d688] font-bold tracking-widest uppercase">
-                Detailed Schedule Coming Soon
+            {/* COMING SOON Badge & Detail */}
+            <div className="relative z-10 w-full pt-4 border-t border-white/10 flex flex-col items-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c9a84c]/15 border border-[#c9a84c]/40 text-xs font-extrabold uppercase tracking-[0.18em] text-[#f3d688] mb-2 shadow-xs">
+                <Clock className="w-3.5 h-3.5 text-[#c9a84c]" />
+                <span>Coming Soon</span>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-400 max-w-xs leading-relaxed">
+                Presentation time slots and technical session allocations will be notified following peer review completions.
               </p>
             </div>
           </div>

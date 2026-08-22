@@ -40,6 +40,12 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           {subtitle}
         </p>
       )}
+
+      {/* Small Gold Accent Line */}
+      <div
+        className={`w-10 h-1 rounded mt-4 ${centered ? 'mx-auto' : ''}`}
+        style={{ backgroundColor: '#c9a84c' }}
+      />
     </div>
   );
 };

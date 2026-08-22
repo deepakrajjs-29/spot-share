@@ -45,6 +45,7 @@ export const AuthorInfo: React.FC = () => {
                 variant="outline"
                 size="sm"
                 icon="download"
+                className="w-full sm:w-auto"
               >
                 Download Word Template
               </CTAButton>
@@ -70,6 +71,7 @@ export const AuthorInfo: React.FC = () => {
                 variant="primary"
                 size="sm"
                 icon="download"
+                className="w-full sm:w-auto"
               >
                 Download LaTeX Package
               </CTAButton>
