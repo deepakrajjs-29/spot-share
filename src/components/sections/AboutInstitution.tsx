@@ -1,4 +1,5 @@
 import React from 'react';
+import { SectionHeading } from '../common/SectionHeading';
 import { ABOUT_INSTITUTION } from '../../data/conference';
 import { CheckCircle } from 'lucide-react';
 
@@ -8,12 +9,12 @@ export const AboutInstitution: React.FC = () => {
       <div className="max-w-[1480px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Heading */}
-        <div className="mb-10 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a84c' }}>HOST INSTITUTION</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-1">{ABOUT_INSTITUTION.heading}</h2>
-          <p className="text-sm mt-2 text-slate-600 max-w-2xl mx-auto">{ABOUT_INSTITUTION.subheading}</p>
-          <div className="w-10 h-1 rounded mt-3 mx-auto" style={{ backgroundColor: '#c9a84c' }} />
-        </div>
+        <SectionHeading
+          badgeText="HOST INSTITUTION"
+          title={ABOUT_INSTITUTION.heading}
+          subtitle={ABOUT_INSTITUTION.subheading}
+          centered={true}
+        />
 
         {/* Full-width Overview Card */}
         <div className="rounded-2xl p-8 sm:p-10 mb-10 bg-white border border-slate-200 shadow-md">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { SectionHeading } from '../common/SectionHeading';
 import { ABOUT_DEPARTMENT } from '../../data/conference';
 import { Award } from 'lucide-react';
 
@@ -8,12 +9,12 @@ export const AboutDepartment: React.FC = () => {
       <div className="max-w-[1480px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Heading */}
-        <div className="mb-10 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a84c' }}>ORGANIZING DEPARTMENT</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-1">{ABOUT_DEPARTMENT.heading}</h2>
-          <p className="text-sm mt-2 text-slate-600 max-w-2xl mx-auto">{ABOUT_DEPARTMENT.subheading}</p>
-          <div className="w-10 h-1 rounded mt-3 mx-auto" style={{ backgroundColor: '#c9a84c' }} />
-        </div>
+        <SectionHeading
+          badgeText="ORGANIZING DEPARTMENT"
+          title={ABOUT_DEPARTMENT.heading}
+          subtitle={ABOUT_DEPARTMENT.subheading}
+          centered={true}
+        />
 
         {/* Two-column: lab image left, content right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center mb-14 max-w-6xl mx-auto">

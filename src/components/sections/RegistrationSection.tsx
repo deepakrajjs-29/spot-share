@@ -1,4 +1,5 @@
 import React from 'react';
+import { SectionHeading } from '../common/SectionHeading';
 import { CONFIG } from '../../data/config';
 import { CTAButton } from '../common/CTAButton';
 
@@ -17,11 +18,12 @@ export const RegistrationSection: React.FC = () => {
       <div className="max-w-[1480px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Heading */}
-        <div className="mb-10 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a84c' }}>CONFERENCE TARIFF</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Registration Fees</h2>
-          <div className="w-10 h-1 rounded mx-auto" style={{ backgroundColor: '#c9a84c' }} />
-        </div>
+        <SectionHeading
+          badgeText="CONFERENCE TARIFF"
+          title="Registration Fees"
+          subtitle="Tiered delegate registration matrix for national and international authors."
+          centered={true}
+        />
 
         {/* Fee Table */}
         <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden mb-8 bg-white border border-slate-200 shadow-lg">

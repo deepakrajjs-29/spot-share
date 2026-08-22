@@ -10,10 +10,12 @@ export const AboutConference: React.FC = () => {
     <section id="about" className="py-20 lg:py-24 relative" style={{ backgroundColor: '#f8fafc' }}>
       <div className="max-w-[1480px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
 
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">About the Conference</h2>
-          <div className="w-10 h-1 rounded mx-auto" style={{ backgroundColor: '#c9a84c' }} />
-        </div>
+        <SectionHeading
+          badgeText="ABOUT SNSECT'27"
+          title="About the Conference"
+          subtitle="Pioneering sustainable digital electronics, low-power architectures, and green communication systems."
+          centered={true}
+        />
 
         {/* Full-width Overview Card */}
         <div className="rounded-2xl p-8 sm:p-10 mb-14 bg-white border border-slate-200/80 shadow-md">

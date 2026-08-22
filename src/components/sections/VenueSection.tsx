@@ -15,7 +15,7 @@ export const VenueSection: React.FC = () => {
         <SectionHeading
           badgeText="CONFERENCE LOCATION"
           title="Conference Venue"
-          subtitle=""
+          subtitle="Hosted at the autonomous campus of SNS College of Technology, Coimbatore, Tamil Nadu."
           centered={true}
         />
 
